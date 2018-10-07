@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>째깍째깍</title>
+	<link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
+	<style>
+		h1 { font-family: 'Do Hyeon', sans-serif; }
+		body {background-image: url(tictoc.gif);}
+		#clock { width: 900px; cursor:pointer;
+			animation: moveClock 4s infinite paused; }
+		#tictoc { width: 180px; height: 100px; font-size: 5em; line-height: 100px; text-align: center; color: red; opacity: 0; position: absolute;
+			animation: drop 2s infinite; }
+
+		#wowVideo { position: absolute; left: 200px; top: 100px; 
+			animation: moveVideo 2s forwards paused;}
+
+
+
+		@keyframes drop {
+			from { margin-top: 0px; }
+			to { margin-top: 50px; }
+		}
+
+		@keyframes moveClock {
+			10% {position:absolute; left:500px; top:0px;}
+			30% {position:absolute; left:800px; top:800px;}
+			60% {position:absolute; left:1600px; top:200px;}
+			90% {position:absolute; left:100px; top:500px;}
+		}
+
+		@keyframes moveVideo {
+			from { width: 0px; }
+			to { width: 1200px; }
+		}
+
+	</style>
+</head>
+<body>
+	<div id="But"></div>
+	<div style=" width: 900px; margin: auto; ">
+		<img id="clock" src="clock.png">
+	</div>
+	<h1 id="tictoc">째깍</h1>
+	<audio id="clockSound">
+		<source src="tictocS.mp3" type="audio/mpeg">
+	</audio>
+
+	<div style=" margin: auto; ">
+	<video id="wowVideo">
+		<source src="wow.mp4" type="video/mp4">
+	</video>
+	</div>
+
+	<script type="text/javascript">
+		var toggle = "off";
+		
+		clock.onclick = function() {
+			if (toggle=="off") {
+				toggle = "on";				
+				tictoc.style.opacity = 100;
+				clockSound.play();
+				clockSound.loop = true;
+					
+				for(var i=0; i<100; i++) {
+					var j = document.getElementById("tictoc")
+					var newTT = j.cloneNode(true);
+							
+					newTT.style.left = Math.random()* window.innerWidth + "px";
+					newTT.style.top = Math.random()*window.innerHeight + "px";
+					newTT.style.animationDuration = Math.random()+"s";
+					newTT.style.color = randomColor();
+
+					document.body.appendChild(newTT);
+				}
+
+				function randomColor() {
+					var a = Math.random()*255;
+					var b = Math.random()*255;
+					var c = Math.random()*255;
+					var text = "rgb(" + a + " , " + b + " , " + c + ")";
+					return text;
+				}
+
+				clock.style.width = 150 + "px";
+				clock.style.animationPlayState = "running";
+				
+
+			} else {
+				clock.style.animationPlayState = "paused";
+				clockSound.loop = false;
+				clockSound.paused();
+				wowVideo.style.animationPlayState = "running";
+				wowVideo.play();
+			}
+
+		}
+			
+
+	</script>
+
+</body>
+</html>
